@@ -1,5 +1,5 @@
-let stname = document.querySelector('stname').value
-let age = document.querySelector('age').value
+let stname = document.getElementById('stname').value
+let age = document.getElementById('age').value
 let btn = document.querySelector('button')
 let form = document.forms.names
 let delStudent = document.getElementById('delStudent')
@@ -23,37 +23,26 @@ window.onclick = function (event) {
 }
 
 //
-let students = [
-	{
-		id: '',
-		name: '',
-		age: ''
-	},
-	{
-		id: '',
-		name: '',
-		age: ''
-	}
-]
+let students = []
 // нумерация
 const nums = [...document.querySelectorAll('.id')]
 nums.forEach((num, index) => num.innerHTML = ++index)
 
+birth = 2022 - age
+
+
 //
-form.onsubmit = (event) => {
+btn.onClick = (event) => {
 	event.preventDefault()
 
 	let student = {
-		id = nums,
-		name =  stname,
-		age = birth
+		nums,
+		stname,
+		birth
 	}
-
 	students.push(student)
-
 	reload(students)
 }
-
 
 function reload(arr) {
 	content.innerHTML = ""
@@ -66,7 +55,7 @@ function reload(arr) {
 		let edit = document.createElement('span')
 		let delStudent = document.createElement('span')
 
-		num.innerHTML = item.id
+		num.innerHTML = `${item.id}`
 		student.innerHTML = item.name
 		birth.innerHTML = item.age
 		actions.classList.add('actions')
@@ -78,7 +67,6 @@ function reload(arr) {
 		content.append(num, student, birth, actions)
 		actions.append(edit, delStudent)
 
-		// functions
 		delStudent.onclick = () => {
 			students = students.filter(elem => elem.id !== item.id)
 			reload(students)
