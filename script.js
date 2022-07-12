@@ -1,5 +1,5 @@
-let stname = document.getElementById('stname').value
-let age = document.getElementById('age').value
+let stname = document.getElementById('name').value
+let age = document.getElementById('birth').value
 let btn = document.querySelector('button')
 let form = document.forms.names
 let delStudent = document.getElementById('delStudent')
@@ -40,8 +40,25 @@ btn.onClick = (event) => {
 		stname,
 		birth
 	}
+
 	students.push(student)
 	reload(students)
+
+	// let student = form('#form input');
+
+	// let obj = {};
+
+	// let checkField = student.every((el) => el.value.length);
+
+	// if (checkField) {
+	// 	for (const input of studen) {
+	// 		obj[input.id] = input.value;
+	// 	}
+	// 	students.push(obj);
+	// 	reload(students)
+	// }
+	// return alert('Не все поля заполнены')
+
 }
 
 function reload(arr) {
