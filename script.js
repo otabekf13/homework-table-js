@@ -1,95 +1,98 @@
-let stname = document.getElementById('name').value
-let age = document.getElementById('birth').value
-let btn = document.querySelector('button')
+import {openModal} from './modules/functions.js'
+import {modalInput, modalInput_two} from './modules/functions.js'
+export let id 
+
 let form = document.forms.names
-let delStudent = document.getElementById('delStudent')
 let content = document.querySelector('.content')
-
-// Модальное окно
-let modal = document.getElementById("modal");
-let editBtn = document.querySelectorAll("edit");
-let closeBtn = document.getElementsByClassName("close")[0];
-
-editBtn.onclick = function () {
-	modal.style.display = "block";
-}
-closeBtn.onclick = function () {
-	modal.style.display = "none";
-}
-window.onclick = function (event) {
-	if (event.target == modal) {
-		modal.style.display = "none";
-	}
-}
-
-//
-let students = []
-// нумерация
-const nums = [...document.querySelectorAll('.id')]
-nums.forEach((num, index) => num.innerHTML = ++index)
-
-birth = 2022 - age
+let students = [
+	{
+		id: Math.random(),
+		name: 'Alex Adams',
+		born: 1990
+	},
+	{
+		id: Math.random(),
+		name: 'Alisher MArdieyv',
+		born: 1990
+	},
+	{
+		id: Math.random(),
+		name: 'Shakh Xamidov',
+		born: 1990
+	},
+]
 
 
-//
-btn.onClick = (event) => {
+
+form.onsubmit = (event) => {
 	event.preventDefault()
 
-	let student = {
-		nums,
-		stname,
-		birth
+	let user = {
+		id: Math.random(),
 	}
 
-	students.push(student)
+	let fm = new FormData(form)
+
+	fm.forEach((value, key) => {
+		user[key] = value
+	})
+
+
+	user.born = new Date().getFullYear() - user.born
+
+	students.push(user)
 	reload(students)
-
-	// let student = form('#form input');
-
-	// let obj = {};
-
-	// let checkField = student.every((el) => el.value.length);
-
-	// if (checkField) {
-	// 	for (const input of studen) {
-	// 		obj[input.id] = input.value;
-	// 	}
-	// 	students.push(obj);
-	// 	reload(students)
-	// }
-	// return alert('Не все поля заполнены')
-
 }
+
+
 
 function reload(arr) {
 	content.innerHTML = ""
 
 	for (let item of arr) {
+		let div = document.createElement('div')
 		let num = document.createElement('span')
 		let student = document.createElement('span')
 		let birth = document.createElement('span')
 		let actions = document.createElement('div')
-		let edit = document.createElement('span')
-		let delStudent = document.createElement('span')
+		let edit = document.createElement('img')
+		let delStudent = document.createElement('img')
 
-		num.innerHTML = `${item.id}`
+		num.innerHTML = arr.indexOf(item) + 1 + '.'
 		student.innerHTML = item.name
-		birth.innerHTML = item.age
+		birth.innerHTML = item.born
 		actions.classList.add('actions')
-		edit.innerHTML = `<i class="fa - regular fa - pen - to - square"></i>`
+		div.classList.add('item')
+		edit.src = "https://cdn0.iconfinder.com/data/icons/multimedia-solid-30px/30/edit_modify_write_pen-1024.png"
+		delStudent.src = "https://cdn4.iconfinder.com/data/icons/eon-ecommerce-i-1/32/trashcan_delete_remove-1024.png"
 		edit.setAttribute('id', 'edit')
-		delStudent.innerHTML = `<i class="fa - regular fa - trash - can"></i>`
 		delStudent.setAttribute('id', 'deleteStudent')
 
-		content.append(num, student, birth, actions)
+
 		actions.append(edit, delStudent)
+		div.append(num, student, birth, actions)
+		content.append(div)
 
 		delStudent.onclick = () => {
 			students = students.filter(elem => elem.id !== item.id)
+			console.log(students);
 			reload(students)
 		}
+
+		edit.onclick = () => {
+			id = item.id
+
+			openModal()
+
+			modalInput.value = item.name
+			modalInput_two.value = new Date().getFullYear() - item.born 
+		}
+		
 	}
 }
 
 
 reload(students)
+
+
+
