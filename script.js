@@ -4,23 +4,7 @@ export let id
 
 let form = document.forms.names
 let content = document.querySelector('.content')
-let students = [
-	{
-		id: Math.random(),
-		name: 'Alex Adams',
-		born: 1990
-	},
-	{
-		id: Math.random(),
-		name: 'Alisher MArdieyv',
-		born: 1990
-	},
-	{
-		id: Math.random(),
-		name: 'Shakh Xamidov',
-		born: 1990
-	},
-]
+export let students = JSON.parse(localStorage.getItem('students')) || []
 
 
 
@@ -42,11 +26,12 @@ form.onsubmit = (event) => {
 
 	students.push(user)
 	reload(students)
+	localStorage.setItem('students', JSON.stringify(students))
 }
 
 
 
-function reload(arr) {
+export function reload(arr) {
 	content.innerHTML = ""
 
 	for (let item of arr) {
@@ -77,6 +62,8 @@ function reload(arr) {
 			students = students.filter(elem => elem.id !== item.id)
 			console.log(students);
 			reload(students)
+			localStorage.setItem('students', JSON.stringify(students))
+
 		}
 
 		edit.onclick = () => {
@@ -86,6 +73,7 @@ function reload(arr) {
 
 			modalInput.value = item.name
 			modalInput_two.value = new Date().getFullYear() - item.born 
+			localStorage.setItem('students', JSON.stringify(students))
 		}
 		
 	}

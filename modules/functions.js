@@ -1,4 +1,5 @@
 import {id} from '../script.js'
+import {students, reload} from '../script.js'
 export let modal = document.getElementById("modal");
 export let modal_bg = document.querySelector(".modal_bg");
 export let buttonSave = modal.querySelector('button')
@@ -34,6 +35,7 @@ buttonSave.onclick = () => {
 	item.born = new Date().getFullYear() - modalInput_two.value 
 
 	reload(students)
+	localStorage.setItem('students', JSON.stringify(students))
 	closeModal()
 }
 
