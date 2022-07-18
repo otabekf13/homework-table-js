@@ -1,95 +1,59 @@
-let stname = document.getElementById('name').value
-let age = document.getElementById('birth').value
-let btn = document.querySelector('button')
-let form = document.forms.names
-let delStudent = document.getElementById('delStudent')
+import {goods} from './module/db.js'
+// localStorage.goods = JSON.stringify(goods)
+
+let formAdd = document.forms.add
+let show = document.querySelector('.show')
+let right_menu = document.querySelector('.right_menu')
+let cancel = document.querySelector('.cancel')
 let content = document.querySelector('.content')
 
-// Модальное окно
-let modal = document.getElementById("modal");
-let editBtn = document.querySelectorAll("edit");
-let closeBtn = document.getElementsByClassName("close")[0];
+let linkedGoods = JSON.parse(localStorage.goods) || []
 
-editBtn.onclick = function () {
-	modal.style.display = "block";
+console.log(linkedGoods);
+
+show.onclick = () => {
+	right_menu.style.right = "0px"
 }
-closeBtn.onclick = function () {
-	modal.style.display = "none";
-}
-window.onclick = function (event) {
-	if (event.target == modal) {
-		modal.style.display = "none";
-	}
+cancel.onclick = () => {
+	right_menu.style.right = "-100%"
 }
 
-//
-let students = []
-// нумерация
-const nums = [...document.querySelectorAll('.id')]
-nums.forEach((num, index) => num.innerHTML = ++index)
+formAdd.onsubmit = (e) => {
+	e.preventDefault()
 
-birth = 2022 - age
-
-
-//
-btn.onClick = (event) => {
-	event.preventDefault()
-
-	let student = {
-		nums,
-		stname,
-		birth
+	let product = {
+		id: Math.random()
 	}
 
-	students.push(student)
-	reload(students)
+	let fm = new FormData(formAdd)
 
-	// let student = form('#form input');
+	fm.forEach((value, key) => {
+		product[key] = value
+	})
+	
+	goods.push(product)
 
-	// let obj = {};
+	localStorage.goods = JSON.stringify(goods)
 
-	// let checkField = student.every((el) => el.value.length);
-
-	// if (checkField) {
-	// 	for (const input of studen) {
-	// 		obj[input.id] = input.value;
-	// 	}
-	// 	students.push(obj);
-	// 	reload(students)
-	// }
-	// return alert('Не все поля заполнены')
-
+	reload(goods)
 }
 
 function reload(arr) {
 	content.innerHTML = ""
 
 	for (let item of arr) {
-		let num = document.createElement('span')
-		let student = document.createElement('span')
-		let birth = document.createElement('span')
-		let actions = document.createElement('div')
-		let edit = document.createElement('span')
-		let delStudent = document.createElement('span')
+		let box = document.createElement('div')
+		let product = document.createElement('span')
+		let price = document.createElement('p')
 
-		num.innerHTML = `${item.id}`
-		student.innerHTML = item.name
-		birth.innerHTML = item.age
-		actions.classList.add('actions')
-		edit.innerHTML = `<i class="fa - regular fa - pen - to - square"></i>`
-		edit.setAttribute('id', 'edit')
-		delStudent.innerHTML = `<i class="fa - regular fa - trash - can"></i>`
-		delStudent.setAttribute('id', 'deleteStudent')
+		box.classList.add('box')
+		product.innerHTML = item.name
+		price.innerHTML = item.price
 
-		content.append(num, student, birth, actions)
-		actions.append(edit, delStudent)
-
-		delStudent.onclick = () => {
-			students = students.filter(elem => elem.id !== item.id)
-			reload(students)
-		}
+		content.append(box)
+		box.append(product, price)
 	}
 }
 
 
-reload(students)
+reload(linkedGoods)

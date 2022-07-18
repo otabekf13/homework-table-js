@@ -12,34 +12,41 @@
 
 <body>
 	<h1>ДОБАВЛЕНИЕ, ИЗМЕНЕНИЕ И УДАЛЕНИЕ ЭЛЕМЕНТА ИЗ ТАБЛИЦЫ</h1>
+	<button class="activeBtn show "   >
+		Добавить новый товар
+	</button>
 	<form id="names" name="names">
 		<div class="nameBox">
-			<span>Имя</span>
-			<input type="text" placeholder="Bruce Reyes" id="name">
+			<span>Товары от</span>
+			<input type="text" placeholder="100" id="name" name="from" >
 		</div>
 		<div class="ageBox">
-			<span>Возраст</span>
-			<input type="numbers" placeholder="24" id="birth">
+			<span>Товары до</span>
+			<input type="numbers" placeholder="1000" id="birth" name="upTo" >
 		</div>
 		<span></span>
 		<button class="show">Показать</button>
 	</form>
-	<div class="table">
-		<span class="num">No</span>
-		<span class="student">Имя студента</span>
-		<span class="birth">Год рождения</span>
-		<span class="actions">Действия</span>
-	</div>
 	<hr>
 	<div class="content">
 
 	</div>
-	<div id="modal" class="modal">
-		<div class="close">X</div>
+
+	<div class="right_menu">
+		<div>
+			<form action="" name="add" >
+				<label for="name">Название товара</label>
+				<input type="text" id="name" name="name" placeholder="курица" >
+				<label for="price">Цена товара</label>
+				<input type="text" id="price" name="price" placeholder="100$" >
+				<button class="activeBtn" >Добавить</button>
+			</form>
+			<button class="cancel" >Назад</button>
+		</div>
 	</div>
 
 	<script src="https://kit.fontawesome.com/1b18fccde0.js" crossorigin="anonymous"></script>
-	<script src="script.js"></script>
+	<script type="module" src="script.js"></script>
 </body>
 
 </html>
