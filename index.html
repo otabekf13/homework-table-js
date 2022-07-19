@@ -6,40 +6,49 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="style.css">
-	link
-	<title>Таблица студентов</title>
+	<title>Человек в форме</title>
 </head>
 
 <body>
-	<h1>ДОБАВЛЕНИЕ, ИЗМЕНЕНИЕ И УДАЛЕНИЕ ЭЛЕМЕНТА ИЗ ТАБЛИЦЫ</h1>
-	<form id="names" name="names">
+	<h1>ПРОПИСАВ ЧЕЛОВЕКА В ФОРМУ - ДОБАВЬТЕ ЕГО В НЕОБХОДИМУЮ КОЛОНКУ</h1>
+
+	<form name="formAdd">
 		<div class="nameBox">
 			<span>Имя</span>
-			<input type="text" placeholder="Bruce Reyes" id="name">
+			<input type="text" placeholder="Введите имя" name="name">
 		</div>
 		<div class="ageBox">
 			<span>Возраст</span>
-			<input type="numbers" placeholder="24" id="birth">
+			<input type="numbers" placeholder="Введите возраст" name="age">
 		</div>
 		<span></span>
-		<button class="show">Показать</button>
+		<button class="addBtn">Добавить</button>
 	</form>
-	<div class="table">
-		<span class="num">No</span>
-		<span class="student">Имя студента</span>
-		<span class="birth">Год рождения</span>
-		<span class="actions">Действия</span>
-	</div>
-	<hr>
+
 	<div class="content">
+		<div class="sorter">
+			<h2>Люди до 25</h2>
+			<div class="young">
 
-	</div>
-	<div id="modal" class="modal">
-		<div class="close">X</div>
+			</div>
+		</div>
+		<hr>
+		<div class="sorter">
+			<h2>Люди до 50</h2>
+			<div class="middle">
+
+			</div>
+		</div>
+		<hr>
+		<div class="sorter">
+			<h2>Остальные</h2>
+			<div class="others">
+
+			</div>
+		</div>
 	</div>
 
-	<script src="https://kit.fontawesome.com/1b18fccde0.js" crossorigin="anonymous"></script>
-	<script src="script.js"></script>
+	<script type="module" src="script.js"></script>
 </body>
 
 </html>

@@ -1,95 +1,75 @@
-let stname = document.getElementById('name').value
-let age = document.getElementById('birth').value
-let btn = document.querySelector('button')
-let form = document.forms.names
-let delStudent = document.getElementById('delStudent')
-let content = document.querySelector('.content')
+import {a, b, c} from './module/db.js'
+//localStorage.peoples = JSON.stringify(peoples)
 
-// Модальное окно
-let modal = document.getElementById("modal");
-let editBtn = document.querySelectorAll("edit");
-let closeBtn = document.getElementsByClassName("close")[0];
+let formAdd = document.forms.formAdd
+let addBtn = document.querySelector('.addBtn')
+let young = document.querySelector('.young')
+let middle = document.querySelector('.middle')
+let others = document.querySelector('.others')
 
-editBtn.onclick = function () {
-	modal.style.display = "block";
-}
-closeBtn.onclick = function () {
-	modal.style.display = "none";
-}
-window.onclick = function (event) {
-	if (event.target == modal) {
-		modal.style.display = "none";
-	}
-}
+//let linkedPeoples = JSON.parse(localStorage.a) || []
 
-//
-let students = []
-// нумерация
-const nums = [...document.querySelectorAll('.id')]
-nums.forEach((num, index) => num.innerHTML = ++index)
+//console.log(linkedPeoples);
 
-birth = 2022 - age
+formAdd.onsubmit = (e) => {
+	e.preventDefault()
 
-
-//
-btn.onClick = (event) => {
-	event.preventDefault()
-
-	let student = {
-		nums,
-		stname,
-		birth
+	let people = {
+		id: Math.random()
 	}
 
-	students.push(student)
-	reload(students)
+	let fm = new FormData(formAdd)
 
-	// let student = form('#form input');
+	fm.forEach((value, key) => {
+		people[key] = value
+	})
 
-	// let obj = {};
+	let sort = {
+		if(people.age < 25) {
+		a.push(people)
+		} else if(people.age < 24 && people.age > 51) {
+		b.push(people)
+		} else {c.push(people)}
+	}
 
-	// let checkField = student.every((el) => el.value.length);
+	// localStorage.peoples = JSON.stringify(peoples)
 
-	// if (checkField) {
-	// 	for (const input of studen) {
-	// 		obj[input.id] = input.value;
-	// 	}
-	// 	students.push(obj);
-	// 	reload(students)
-	// }
-	// return alert('Не все поля заполнены')
-
+	reload(a, b, c)
 }
 
 function reload(arr) {
-	content.innerHTML = ""
+	young.innerHTML = ""
+	middle.innerHTML = ""
+	others.innerHTML = ""
 
 	for (let item of arr) {
-		let num = document.createElement('span')
-		let student = document.createElement('span')
-		let birth = document.createElement('span')
-		let actions = document.createElement('div')
-		let edit = document.createElement('span')
-		let delStudent = document.createElement('span')
+		let card = document.createElement('div')
+		let name = document.createElement('span')
+		let card_age = document.createElement('div')
+		let age = document.createElement('p')
+		let people_age = document.createElement('h4')
 
-		num.innerHTML = `${item.id}`
-		student.innerHTML = item.name
-		birth.innerHTML = item.age
-		actions.classList.add('actions')
-		edit.innerHTML = `<i class="fa - regular fa - pen - to - square"></i>`
-		edit.setAttribute('id', 'edit')
-		delStudent.innerHTML = `<i class="fa - regular fa - trash - can"></i>`
-		delStudent.setAttribute('id', 'deleteStudent')
+		card.classList.add('card')
+		name.innerHTML = item.name
+		card_age.classList.add('card_age')
+		age.innerHTML = "Age"
+		people_age.innerHTML = item.age
 
-		content.append(num, student, birth, actions)
-		actions.append(edit, delStudent)
-
-		delStudent.onclick = () => {
-			students = students.filter(elem => elem.id !== item.id)
-			reload(students)
+		if(people.age < 26){
+			young.append(card)
+			card.append(name, card_age)
+			card_age.append(age, people_age)
+		} else if (people.age > 25 && people.age < 51){
+			middle.append(card)
+			card.append(name, card_age)
+			card_age.append(age, people_age)
+		} else {
+			others.append(card)
+			card.append(name, card_age)
+			card_age.append(age, people_age)
 		}
 	}
 }
 
 
-reload(students)
+// reload(linkedPeoples)
